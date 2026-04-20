@@ -30,7 +30,7 @@ select{cursor:pointer;-webkit-appearance:none;appearance:none}
 .px-1{padding-left:.25rem;padding-right:.25rem}.px-2{padding-left:.5rem;padding-right:.5rem}
 .px-2\.5{padding-left:.625rem;padding-right:.625rem}.px-3{padding-left:.75rem;padding-right:.75rem}
 .px-4{padding-left:1rem;padding-right:1rem}
-.py-1{padding-top:.25rem;padding-bottom:.25rem}
+.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}
 .py-1\.5{padding-top:.375rem;padding-bottom:.375rem}
 .py-2{padding-top:.5rem;padding-bottom:.5rem}
 .py-2\.5{padding-top:.625rem;padding-bottom:.625rem}
@@ -40,8 +40,8 @@ select{cursor:pointer;-webkit-appearance:none;appearance:none}
 .pb-3{padding-bottom:.75rem}.pb-8{padding-bottom:2rem}
 .mb-1{margin-bottom:.25rem}.mb-1\.5{margin-bottom:.375rem}.mb-2{margin-bottom:.5rem}
 .mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}
-.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-4{margin-top:1rem}
-.gap-1{gap:.25rem}.gap-2{gap:.5rem}
+.mt-0\.5{margin-top:.125rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-4{margin-top:1rem}
+.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}
 .text-xs{font-size:.75rem;line-height:1rem}.text-sm{font-size:.875rem;line-height:1.25rem}
 .text-base{font-size:1rem;line-height:1.5rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}
 .font-mono{font-family:'IBM Plex Mono',monospace}.font-bold{font-weight:700}
@@ -58,27 +58,30 @@ select{cursor:pointer;-webkit-appearance:none;appearance:none}
 .bg-zinc-900{background:#18181b}.bg-zinc-700{background:#3f3f46}.bg-zinc-600{background:#52525b}
 .bg-amber-500{background:#f59e0b}.bg-amber-600{background:#d97706}.bg-amber-950{background:#1c0a00}
 .bg-emerald-700{background:#047857}.bg-emerald-800{background:#065f46}.bg-emerald-900{background:#064e3b}
-.bg-rose-700{background:#be123c}.bg-rose-900{background:#4c0519}
+.bg-rose-600{background:#e11d48}.bg-rose-700{background:#be123c}
+.bg-rose-900{background:#4c0519}.bg-rose-950{background:#1a0010}
 .bg-sky-700{background:#0369a1}.bg-sky-950{background:#082f49}.bg-sky-900{background:#0c4a6e}
 .bg-violet-700{background:#7c3aed}.bg-violet-950{background:#2e1065}.bg-violet-900{background:#4c1d95}
 .text-zinc-100{color:#f4f4f5}.text-zinc-200{color:#e4e4e7}.text-zinc-300{color:#d4d4d8}
 .text-zinc-400{color:#a1a1aa}.text-zinc-500{color:#71717a}
 .text-zinc-600{color:#52525b}.text-zinc-950{color:#09090b}
 .text-amber-400{color:#fbbf24}.text-amber-500{color:#f59e0b}
-.text-emerald-100{color:#d1fae5}.text-emerald-400{color:#34d399}.text-emerald-500{color:#10b981}
-.text-rose-100{color:#ffe4e6}.text-rose-400{color:#fb7185}.text-rose-500{color:#f43f5e}.text-rose-600{color:#e11d48}
-.text-sky-100{color:#e0f2fe}.text-sky-300{color:#7dd3fc}.text-sky-400{color:#38bdf8}
+.text-emerald-100{color:#d1fae5}.text-emerald-300{color:#6ee7b7}
+.text-emerald-400{color:#34d399}.text-emerald-500{color:#10b981}
+.text-rose-100{color:#ffe4e6}.text-rose-300{color:#fca5a5}
+.text-rose-400{color:#fb7185}.text-rose-500{color:#f43f5e}.text-rose-600{color:#e11d48}
+.text-sky-300{color:#7dd3fc}.text-sky-400{color:#38bdf8}
 .text-violet-400{color:#a78bfa}
-.text-zinc-100{color:#f4f4f5}
 .border-zinc-700{border-color:#3f3f46}.border-zinc-800{border-color:#27272a}.border-zinc-900{border-color:#18181b}
-.border-zinc-600{border-color:#52525b}
 .border-amber-700{border-color:#b45309}
 .border-emerald-700{border-color:#047857}.border-emerald-800{border-color:#065f46}
-.border-rose-700{border-color:#be123c}
+.border-rose-700{border-color:#be123c}.border-rose-800{border-color:#9f1239}
 .border-sky-700{border-color:#0369a1}.border-sky-800{border-color:#075985}.border-sky-900{border-color:#0c4a6e}
 .border-violet-700{border-color:#7c3aed}.border-violet-800{border-color:#5b21b6}.border-violet-900{border-color:#4c1d95}
 .hover\:bg-zinc-700:hover{background:#3f3f46}
 .hover\:bg-emerald-800:hover{background:#065f46}
+.hover\:bg-rose-600:hover{background:#e11d48}
+.hover\:bg-rose-900:hover{background:#4c0519}
 .hover\:text-rose-400:hover{color:#fb7185}
 .active\:scale-95:active{transform:scale(.95)}
 .focus\:outline-none:focus{outline:none}
@@ -96,7 +99,7 @@ const XLSX_LIB = window.XLSX;
 // ── Constants ──
 const ENTRY_BAR_OPTIONS = ["開場", "1", "2", "3", "4", "4+"];
 const PERCENT_OPTIONS = [
-  { label: "0.088%", value: 0.088 },
+  { label: "0.0833%", value: 0.0833 },
   { label: "0.167%", value: 0.167 },
   { label: "0.200%", value: 0.200 },
   { label: "1.000%", value: 1.000 },
@@ -165,13 +168,18 @@ function calcMonthlyCompound(recs, year, month, leverageMultiplier = 1) {
     .sort((a, b) => a.day - b.day);
   if (!days.length) return null;
   let compound = 1;
+  let peak = 1;       // max compound value seen
+  let maxDD = 0;      // max drawdown in % points (positive number)
   const steps = days.map(rec => {
     const rawDayPnl = rec.rows.reduce((acc, r) => acc + (calcPnL(r.grids, rec.pctRate, r.capital) || 0), 0);
     const dayPnl = rawDayPnl * leverageMultiplier;
     compound *= (1 + dayPnl / 100);
+    if (compound > peak) peak = compound;
+    const dd = (peak - compound) / peak * 100; // drawdown from peak, in %
+    if (dd > maxDD) maxDD = dd;
     return { day: rec.day, dayPnl, compound: (compound - 1) * 100 };
   });
-  return { steps, totalCompound: (compound - 1) * 100 };
+  return { steps, totalCompound: (compound - 1) * 100, maxDrawdown: maxDD };
 }
 
 // ── Excel Export ──
@@ -200,17 +208,22 @@ function exportToExcel(records) {
   }
 
   // Build compound map for a set of records (with optional leverage)
+  // Also returns monthDD: { "YYYY/MM" -> maxDrawdown% }
   function buildCompoundMap(recs, leverageMultiplier = 1) {
     const monthSet = [...new Set(recs.map(r => `${r.year}-${String(r.month).padStart(2,"0")}`))].sort();
     const cm = {};
+    const monthDD = {};
     monthSet.forEach(ym => {
       const [y, m] = ym.split("-").map(Number);
       const res = calcMonthlyCompound(recs, y, m, leverageMultiplier);
       if (!res) return;
+      const mmKey = `${y}/${String(m).padStart(2,"0")}`;
+      monthDD[mmKey] = res.maxDrawdown;
       res.steps.forEach(s => {
-        cm[`${y}/${String(m).padStart(2,"0")}/${String(s.day).padStart(2,"0")}`] = { dayPnl: s.dayPnl, compound: s.compound };
+        cm[`${mmKey}/${String(s.day).padStart(2,"0")}`] = { dayPnl: s.dayPnl, compound: s.compound };
       });
     });
+    cm.__monthDD = monthDD;
     return cm;
   }
 
@@ -270,42 +283,70 @@ function exportToExcel(records) {
   });
 
   // ── Summary sheet builder ──
-  function buildSummaryRows(dayMap, compoundMap) {
+  // compoundMapX3: optional ×3 compound map; both maps carry .__monthDD
+  function buildSummaryRows(dayMap, compoundMap, compoundMapX3) {
+    const monthDD    = compoundMap.__monthDD    || {};
+    const monthDDX3  = compoundMapX3?.__monthDD || {};
     return Object.entries(dayMap).sort().map(([date, d]) => {
-      const total = d.trades.reduce((a,t) => a + t.pnl, 0);
-      const wins  = d.trades.filter(t => t.pnl > 0).length;
-      const comp  = compoundMap[date]?.compound ?? "";
-      return [
+      const total  = d.trades.reduce((a,t) => a + t.pnl, 0);
+      const wins   = d.trades.filter(t => t.pnl > 0).length;
+      const comp   = compoundMap[date]?.compound ?? "";
+      const compX3 = compoundMapX3 ? (compoundMapX3[date]?.compound ?? "") : null;
+      const mmKey  = `${d.year}/${String(d.month).padStart(2,"0")}`;
+      const dd     = monthDD[mmKey]  !== undefined ? monthDD[mmKey]  / 100 : "";
+      const ddX3   = monthDDX3[mmKey] !== undefined ? monthDDX3[mmKey] / 100 : "";
+      const base = [
         date, d.year, d.month, d.day, d.pctRate/100, d.trades.length,
         d.trades.filter(t=>t.direction==="L").length,
         d.trades.filter(t=>t.direction==="S").length,
         total/100, wins, d.trades.filter(t=>t.pnl<=0).length,
         d.trades.length>0 ? wins/d.trades.length : 0,
         comp !== "" ? comp/100 : "",
+        dd,                          // 當月最大回撤%
       ];
+      if (compoundMapX3 !== undefined) {
+        base.push(compX3 !== "" && compX3 !== null ? compX3/100 : "");
+        base.push(ddX3);             // 當月最大回撤%×3
+      }
+      return base;
     });
   }
 
-  const summaryHeaders = ["日期","年","月","日","每格%","交易筆數","多單(L)","空單(S)","當日總損益%","勝筆數","負筆數","勝率","當月累積複利%"];
-  const summCols = [{wch:12},{wch:6},{wch:6},{wch:6},{wch:10},{wch:10},{wch:8},{wch:8},{wch:12},{wch:8},{wch:8},{wch:8},{wch:14}];
+  // Headers: s1/s2 has ×3 cols + both DD cols; s3 has only base DD col
+  const summaryHeaders12 = ["日期","年","月","日","每格%","交易筆數","多單(L)","空單(S)","當日總損益%","勝筆數","負筆數","勝率","當月累積複利%","當月最大回撤%",`當月累積複利%×${TRIPLE_LEVERAGE}`,`當月最大回撤%×${TRIPLE_LEVERAGE}`];
+  const summaryHeaders3  = ["日期","年","月","日","每格%","交易筆數","多單(L)","空單(S)","當日總損益%","勝筆數","負筆數","勝率","當月累積複利%","當月最大回撤%"];
+  const summCols12 = [{wch:12},{wch:6},{wch:6},{wch:6},{wch:10},{wch:10},{wch:8},{wch:8},{wch:12},{wch:8},{wch:8},{wch:8},{wch:14},{wch:14},{wch:18},{wch:18}];
+  const summCols3  = [{wch:12},{wch:6},{wch:6},{wch:6},{wch:10},{wch:10},{wch:8},{wch:8},{wch:12},{wch:8},{wch:8},{wch:8},{wch:14},{wch:14}];
 
-  function applySimFmt(ws, nRows) {
+  function applySimFmt(ws, nRows, hasX3) {
+    // col indices: 4=每格%, 8=損益%, 11=勝率, 12=複利, 13=DD, 14=複利×3, 15=DD×3
+    const pctCols = hasX3
+      ? [[4,pFmt],[8,pFmt],[11,"0.0%"],[12,pFmt],[13,pFmt],[14,pFmt],[15,pFmt]]
+      : [[4,pFmt],[8,pFmt],[11,"0.0%"],[12,pFmt],[13,pFmt]];
     for (let r=1;r<=nRows;r++) {
-      [[4,pFmt],[8,pFmt],[11,"0.0%"],[12,pFmt]].forEach(([c,f]) => {
+      pctCols.forEach(([c,f]) => {
         const cell = XLSX_LIB.utils.encode_cell({r,c});
         if (ws[cell] && typeof ws[cell].v==="number") ws[cell].z = f;
       });
     }
   }
 
-  // Sheets 4–6: 每日匯總
-  [[dayMap1,cm1,"策略一_每日匯總"],[dayMap2,cm2,"策略二_每日匯總"],[dayMap3,cm3,"策略三_每日匯總"]].forEach(([dm,cm,name]) => {
-    const rows = buildSummaryRows(dm, cm);
-    const ws = XLSX_LIB.utils.aoa_to_sheet([summaryHeaders, ...rows]);
-    ws["!cols"] = summCols;
-    applySimFmt(ws, rows.length);
+  // Sheets 4–5: 策略一/二每日匯總（含×3複利欄 + 兩個DD欄）
+  [[dayMap1,cm1,cm1x3,"策略一_每日匯總"],[dayMap2,cm2,cm2x3,"策略二_每日匯總"]].forEach(([dm,cm,cmx3,name]) => {
+    const rows = buildSummaryRows(dm, cm, cmx3);
+    const ws = XLSX_LIB.utils.aoa_to_sheet([summaryHeaders12, ...rows]);
+    ws["!cols"] = summCols12;
+    applySimFmt(ws, rows.length, true);
     XLSX_LIB.utils.book_append_sheet(wb, ws, name);
   });
+  // Sheet 6: 策略三每日匯總（含DD欄，無×3欄）
+  {
+    const rows = buildSummaryRows(dayMap3, cm3);
+    const ws = XLSX_LIB.utils.aoa_to_sheet([summaryHeaders3, ...rows]);
+    ws["!cols"] = summCols3;
+    applySimFmt(ws, rows.length, false);
+    XLSX_LIB.utils.book_append_sheet(wb, ws, "策略三_每日匯總");
+  }
 
   // ── Sheet 7: 策略一 vs 策略二 差異（原始，不含槓桿放大）──
   const allDates12 = [...new Set([...Object.keys(dayMap1), ...Object.keys(dayMap2)])].sort();
@@ -527,24 +568,44 @@ function MonthlyCompoundPanel({ records, strategy }) {
   const monthSet = [...new Set(filtered.map(r => `${r.year}-${String(r.month).padStart(2,"0")}`))].sort().reverse().slice(0,4);
   if (!monthSet.length) return null;
   const sc = STRATEGY_COLORS[strategy];
+  const showX3 = strategy === 1 || strategy === 2;
   return (
     <div className="mb-3">
       <div className={`text-xs font-bold tracking-wider mb-2 ${sc.text}`}>{sc.label} 每月複利損益</div>
       <div className="space-y-2">
         {monthSet.map(ym => {
           const [y,m] = ym.split("-").map(Number);
-          const res = calcMonthlyCompound(filtered, y, m, 1);
+          const res   = calcMonthlyCompound(filtered, y, m, 1);
+          const resX3 = showX3 ? calcMonthlyCompound(filtered, y, m, TRIPLE_LEVERAGE) : null;
           if (!res) return null;
-          const { steps, totalCompound } = res;
+          const { steps, totalCompound, maxDrawdown } = res;
           const isPos = totalCompound >= 0;
+          const isX3Pos = resX3 ? resX3.totalCompound >= 0 : false;
           return (
-            <div key={ym} className={`rounded-xl border px-3 py-2.5 ${isPos?"border-emerald-700 bg-emerald-900":"border-rose-700 bg-rose-900"}`} style={{opacity:0.8}}>
-              <div className="flex items-center justify-between mb-1.5">
+            <div key={ym} className={`rounded-xl border px-3 py-2.5 ${isPos?"border-emerald-700 bg-emerald-900":"border-rose-700 bg-rose-900"}`} style={{opacity:0.85}}>
+              {/* Header row: date | compound | ×3 compound */}
+              <div className="flex items-center justify-between mb-1">
                 <span className="text-zinc-400 text-xs font-mono font-bold">{y}/{String(m).padStart(2,"0")}</span>
-                <span className={`font-mono font-bold text-sm ${isPos?"text-emerald-400":"text-rose-400"}`}>
-                  {isPos?"+":""}{totalCompound.toFixed(3)}%
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className={`font-mono font-bold text-sm ${isPos?"text-emerald-400":"text-rose-400"}`}>
+                    {isPos?"+":""}{totalCompound.toFixed(3)}%
+                  </span>
+                  {resX3 && (
+                    <span className={`font-mono text-xs font-bold ${isX3Pos?"text-emerald-300":"text-rose-300"}`}>
+                      ×3:{isX3Pos?"+":""}{resX3.totalCompound.toFixed(3)}%
+                    </span>
+                  )}
+                </div>
               </div>
+              {/* Max drawdown */}
+              <div className="flex items-center gap-3 mb-1.5">
+                <span className="text-zinc-500 text-xs">最大回撤：</span>
+                <span className="text-rose-400 text-xs font-mono font-bold">-{maxDrawdown.toFixed(3)}%</span>
+                {resX3 && (
+                  <span className="text-zinc-500 text-xs">×3回撤：<span className="text-rose-300 font-mono font-bold">-{resX3.maxDrawdown.toFixed(3)}%</span></span>
+                )}
+              </div>
+              {/* Day arrows */}
               <div className="flex gap-1 flex-wrap">
                 {steps.map((s,i) => (
                   <div key={i} className="flex flex-col items-center" style={{minWidth:24}}>
@@ -553,14 +614,26 @@ function MonthlyCompoundPanel({ records, strategy }) {
                   </div>
                 ))}
               </div>
+              {/* Cumulative compound trail */}
               <div className="mt-1 flex items-center gap-1 flex-wrap">
                 <span className="text-zinc-600 text-xs">累積：</span>
                 {steps.map((s,i) => (
-                  <span key={i} className={`text-xs font-mono ${s.compound>=0?"text-emerald-500":"text-rose-500"}`} style={{opacity:0.8}}>
+                  <span key={i} className={`text-xs font-mono ${s.compound>=0?"text-emerald-500":"text-rose-500"}`} style={{opacity:0.85}}>
                     {s.compound>=0?"+":""}{s.compound.toFixed(2)}%{i<steps.length-1?" →":""}
                   </span>
                 ))}
               </div>
+              {/* ×3 cumulative trail */}
+              {resX3 && (
+                <div className="mt-0.5 flex items-center gap-1 flex-wrap">
+                  <span className="text-zinc-600 text-xs">×3累積：</span>
+                  {resX3.steps.map((s,i) => (
+                    <span key={i} className={`text-xs font-mono ${s.compound>=0?"text-emerald-300":"text-rose-300"}`} style={{opacity:0.75}}>
+                      {s.compound>=0?"+":""}{s.compound.toFixed(2)}%{i<resX3.steps.length-1?" →":""}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           );
         })}
@@ -629,7 +702,8 @@ function App() {
   const [records,   setRecords]   = useState([]);
   const [loading,   setLoading]   = useState(true);
   const [saved,     setSaved]     = useState(false);
-  const [exporting, setExporting] = useState(false);
+  const [exporting,    setExporting]    = useState(false);
+  const [clearConfirm, setClearConfirm] = useState(false);
 
   useEffect(() => { loadAll().then(r => { setRecords(r); setLoading(false); }); }, []);
 
@@ -650,6 +724,12 @@ function App() {
     const updated = records.filter(r => r.id !== id);
     setRecords(updated);
     await saveAll(updated);
+  };
+
+  const handleClearAll = async () => {
+    setRecords([]);
+    await saveAll([]);
+    setClearConfirm(false);
   };
 
   const handleExport = () => {
@@ -792,12 +872,34 @@ function App() {
 
               {/* Export */}
               <button onClick={handleExport} disabled={exporting}
-                className={`w-full mb-4 py-3 rounded-xl border font-bold text-sm tracking-wider transition-all active:scale-95 ${
+                className={`w-full mb-2 py-3 rounded-xl border font-bold text-sm tracking-wider transition-all active:scale-95 ${
                   exporting?"border-zinc-600 bg-zinc-800 text-zinc-500 cursor-wait"
                   :"border-emerald-700 bg-emerald-900 hover:bg-emerald-800 text-emerald-400"
                 }`}>
                 {exporting ? "⏳ 產生中…" : "⬇ Export Excel（三策略 · 差異比較）"}
               </button>
+
+              {/* 全部清除 */}
+              {!clearConfirm ? (
+                <button onClick={() => setClearConfirm(true)}
+                  className="w-full mb-4 py-2.5 rounded-xl border border-rose-800 bg-rose-950 text-rose-500 font-bold text-xs tracking-wider transition-all hover:bg-rose-900 hover:text-rose-400">
+                  🗑 全部清除紀錄
+                </button>
+              ) : (
+                <div className="mb-4 rounded-xl border border-rose-700 bg-rose-950 px-4 py-3">
+                  <div className="text-rose-400 text-xs font-bold mb-2 text-center">確認清除全部 {records.length} 筆紀錄？此動作無法復原。</div>
+                  <div className="flex gap-2">
+                    <button onClick={handleClearAll}
+                      className="flex-1 py-2 rounded-lg bg-rose-700 text-rose-100 font-bold text-xs transition-all hover:bg-rose-600">
+                      確認清除
+                    </button>
+                    <button onClick={() => setClearConfirm(false)}
+                      className="flex-1 py-2 rounded-lg bg-zinc-800 text-zinc-400 font-bold text-xs transition-all hover:bg-zinc-700">
+                      取消
+                    </button>
+                  </div>
+                </div>
+              )}
             </>
           )}
 
